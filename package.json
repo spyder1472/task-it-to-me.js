@@ -1,0 +1,29 @@
+{
+  "name": "task-it-to-me",
+  "version": "1.0.0",
+  "description": "Command line app for making tasks organized by projects",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node_modules/tape/bin/tape tests/**/*_test.js | node_modules/faucet/bin/cmd.js",
+    "test:debug": "node_modules/tape/bin/tape tests/**/*_test.js",
+    "coverage": "node_modules/tap/bin/run.js --coverage-report=html tests/**/*_test.js",
+    "metrics": "node_modules/plato/bin/plato -r -d metrics lib; open metrics/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/refactories/task-it-to-me.js"
+  },
+  "keywords": [
+    "refactoring",
+    "software design"
+  ],
+  "author": "Derek, genius in residence",
+  "license": "MIT",
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "plato": "^1.5.0",
+    "tap": "^5.7.0",
+    "tape": "^4.5.1"
+  }
+}
