@@ -103,7 +103,12 @@ test('editing a project that does not exist', function(test) {
   setup();
   test.plan(1);
 
+<<<<<<< 0a2802907fcfdace23ba78f141eb2732280472cc
   app.run(function() {
+=======
+  app.run(function(command) {
+    console.log('in callback', command);
+>>>>>>> Amazing TASK-IT-TO-ME Command Line App!
     test.match(testStreams.plainOutput(), "Project doesn't exist: 'House Work'");
   });
 
