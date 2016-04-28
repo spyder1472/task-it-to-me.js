@@ -5,6 +5,8 @@ module.exports = {
 
 function match(base, substring, msg, extra) {
   var value = base.indexOf(substring) >= 0;
+  var message = "\nExpected '" + substring + "' to be contained within '" + base + "'.\n";
+  msg = !value && message;
   this._assert(value, {
     message : msg,
     operator : 'ok',
@@ -16,6 +18,8 @@ function match(base, substring, msg, extra) {
 
 function notMatch(base, substring, msg, extra) {
   var value = base.indexOf(substring) < 0;
+  var message = "\nExpected '" + substring + "' NOT to be contained within '" + base + "'.\n";
+  msg = !value && message;
   this._assert(value, {
     message : msg,
     operator : 'ok',
