@@ -322,3 +322,15 @@ test('bug: finishing a task does not use task name prompt', function(test) {
 
   testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'a', 'new task', 'f', 'new task', 'q']);
 });
+
+test('bug: deleting a task does not use task name prompt', function(test) {
+  setup();
+  test.plan(1);
+
+  app.run(function() {
+    numberOfTaskPrompts = testStreams.plainOutput().split("Enter a task name:").length - 1;
+    test.equal(numberOfTaskPrompts, 2);
+  });
+
+  testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'a', 'new task', 'd', 'new task', 'q']);
+});
