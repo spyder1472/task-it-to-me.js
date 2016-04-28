@@ -297,3 +297,16 @@ test('bug: app hangs at unknown command inside the tasks menu', function(test) {
 
   testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'jj', 'q']);
 });
+
+test('bug: editing a task does not use task name prompts', function(test) {
+  setup();
+  test.plan(2);
+
+  app.run(function() {
+    numberOfTaskPrompts = testStreams.plainOutput().split("Enter a task name:").length;
+    test.equal(numberOfTaskPrompts, 3);
+    test.match(testStreams.plainOutput(), "Enter a new task name:");
+  });
+
+  testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'a', 'new task', 'e', 'new task', 'newer task', 'q']);
+});
