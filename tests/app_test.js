@@ -303,10 +303,22 @@ test('bug: editing a task does not use task name prompts', function(test) {
   test.plan(2);
 
   app.run(function() {
-    numberOfTaskPrompts = testStreams.plainOutput().split("Enter a task name:").length;
-    test.equal(numberOfTaskPrompts, 3);
+    numberOfTaskPrompts = testStreams.plainOutput().split("Enter a task name:").length - 1;
+    test.equal(numberOfTaskPrompts, 2);
     test.match(testStreams.plainOutput(), "Enter a new task name:");
   });
 
   testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'a', 'new task', 'e', 'new task', 'newer task', 'q']);
+});
+
+test('bug: finishing a task does not use task name prompt', function(test) {
+  setup();
+  test.plan(1);
+
+  app.run(function() {
+    numberOfTaskPrompts = testStreams.plainOutput().split("Enter a task name:").length - 1;
+    test.equal(numberOfTaskPrompts, 2);
+  });
+
+  testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'a', 'new task', 'f', 'new task', 'q']);
 });
