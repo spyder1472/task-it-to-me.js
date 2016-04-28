@@ -59,7 +59,7 @@ test('listing projects' , function(test) {
   test.plan(1);
 
   app.run(function() {
-    test.match(testStreams.plainOutput(), "Listing projects:\n  Cat Servitude\n  House work");
+    test.match(testStreams.plainOutput().replace(/\s/), "Listing projects:Cat ServitudeHouse work");
   });
 
   testStreams.mockInput(['a', 'Cat Servitude', 'a', 'House work', 'ls', 'q']);
