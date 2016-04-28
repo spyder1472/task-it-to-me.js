@@ -286,3 +286,14 @@ test('bug: app hangs at unknown command', function(test) {
 
   testStreams.mockInput(['jj', 'q']);
 });
+
+test('bug: app hangs at unknown command inside the tasks menu', function(test) {
+  setup();
+  test.plan(1);
+
+  app.run(function() {
+    test.match(testStreams.plainOutput(), "Unknown command: 'jj'");
+  });
+
+  testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'jj', 'q']);
+});
