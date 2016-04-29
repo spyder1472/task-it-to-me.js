@@ -377,9 +377,22 @@ test('bug: deleting a task does not use task name prompt', function(test) {
   test.plan(1);
 
   app.run(function() {
-    numberOfTaskPrompts = testStreams.plainOutput().split("Enter a task name:").length - 1;
+    numberOfTaskPrompts = splitOutput("Enter a task name:").length - 1;
     test.equal(numberOfTaskPrompts, 2);
   });
 
   testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'a', 'new task', 'd', 'new task', 'q']);
+});
+
+test('bug: duplicate tasks', function(test) {
+  setup();
+  test.plan(1);
+
+  app.run(function() {
+    var listOutput = splitOutput("Listing tasks")[1];
+    var numberOfTasks =  listOutput.split('iron clothes').length - 1;
+    test.equal(numberOfTasks, 1);
+  });
+
+  testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'a', 'iron clothes', 'a', 'iron clothes', 'ls', 'q']);
 });
