@@ -198,7 +198,7 @@ test('listing tasks when tasks exist', function(test) {
   test.plan(1);
 
   app.run(function() {
-    var parts = testStreams.plainOutput().split("Created task: 'clean out the freezer'");
+    var parts = splitOutput("Created task: 'clean out the freezer'");
     test.match(parts[1], 'clean out the freezer');
   });
 
@@ -221,7 +221,7 @@ test('editing a task that does exist', function(test) {
   test.plan(2);
 
   app.run(function() {
-    var lastOutput = testStreams.plainOutput().split('Listing tasks')[1];
+    var lastOutput = splitOutput('Listing tasks')[1];
     test.notMatch(lastOutput, 'clean out the freezer');
     test.match(lastOutput, 'clean out fridge');
   });
@@ -300,7 +300,7 @@ test('going back to the projects menu', function(test) {
   test.plan(1);
 
   app.run(function() {
-    var numberOfTimesProjectsListed = testStreams.plainOutput().split('Listing projects').length - 1;
+    var numberOfTimesProjectsListed = splitOutput('Listing projects').length - 1;
     test.equal(numberOfTimesProjectsListed, 1);
   });
 
@@ -352,7 +352,7 @@ test('bug: editing a task does not use task name prompts', function(test) {
   test.plan(2);
 
   app.run(function() {
-    numberOfTaskPrompts = testStreams.plainOutput().split("Enter a task name:").length - 1;
+    numberOfTaskPrompts = splitOutput("Enter a task name:").length - 1;
     test.equal(numberOfTaskPrompts, 2);
     test.match(testStreams.plainOutput(), "Enter a new task name:");
   });
@@ -365,7 +365,7 @@ test('bug: finishing a task does not use task name prompt', function(test) {
   test.plan(1);
 
   app.run(function() {
-    numberOfTaskPrompts = testStreams.plainOutput().split("Enter a task name:").length - 1;
+    numberOfTaskPrompts = splitOutput("Enter a task name:").length - 1;
     test.equal(numberOfTaskPrompts, 2);
   });
 
