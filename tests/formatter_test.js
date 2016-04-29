@@ -74,3 +74,17 @@ test('#success includes the message', function(test) {
   test.plan(1);
   test.match(formatter.success('do something'), 'do something');
 });
+
+test('#command uses the divider color', function(test) {
+  test.plan(3);
+  test.match(formatter.command('a'), 'a');
+  test.match(formatter.command('a'), formatter.COLORS.divider);
+  test.match(formatter.command('a'), formatter.COLORS.reset);
+});
+
+test('#description uses the prompt color', function(test) {
+  test.plan(3);
+  test.match(formatter.description('add'), 'add');
+  test.match(formatter.description('add'), formatter.COLORS.prompt);
+  test.match(formatter.description('add'), formatter.COLORS.reset);
+});
