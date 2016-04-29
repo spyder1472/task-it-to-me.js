@@ -263,3 +263,15 @@ test('finishing a task that exists', function(test) {
 
   testStreams.mockInput(['a', 'House work', 'e', 'House work', 'a', 'clean out the freezer', 'f', 'clean out the freezer', 'ls', 'q']);
 });
+
+test('going back to the projects menu', function(test) {
+  setup();
+  test.plan(1);
+
+  app.run(function() {
+    var numberOfTimesProjectsListed = testStreams.plainOutput().split('Listing projects').length - 1;
+    test.equal(numberOfTimesProjectsListed, 1);
+  });
+
+  testStreams.mockInput(['a', 'House work', 'e', 'House work', 'b', 'ls', 'q']);
+});
