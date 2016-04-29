@@ -396,3 +396,16 @@ test('bug: duplicate tasks', function(test) {
 
   testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'a', 'iron clothes', 'a', 'iron clothes', 'ls', 'q']);
 });
+
+test('bug: tasks can be destroyed when accidentally adding a project that already exists', function(test) {
+  setup();
+  test.plan(2);
+
+  app.run(function() {
+    test.notMatch(testStreams.plainOutput(), 'No tasks created');
+    var listOutput = splitOutput("Listing tasks")[1];
+    test.match(listOutput, 'iron clothes');
+  });
+
+  testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'a', 'iron clothes', 'b', 'a', 'Chores', 'e', 'Chores', 'ls', 'q']);
+});
