@@ -78,7 +78,7 @@ test('listing projects' , function(test) {
 
   app.run(function() {
     // NOTE: this is a pretty brittle test :(
-    test.match(testStreams.plainOutput(), "Listing projects: \n  Cat Servitude\n  House work");
+    test.match(testStreams.plainOutput(), "Listing projects: \n  1. Cat Servitude\n  2. House work");
   });
 
   testStreams.mockInput(['a', 'Cat Servitude', 'a', 'House work', 'ls', 'q']);
@@ -223,7 +223,7 @@ test('editing a task that does exist', function(test) {
   app.run(function() {
     var lastOutput = splitOutput('Listing tasks')[1];
     test.notMatch(lastOutput, 'clean out the freezer');
-    test.match(lastOutput, 'clean out fridge');
+    test.match(lastOutput, '1. clean out fridge');
   });
 
   testStreams.mockInput(['a', 'House work', 'e', 'House work', 'a', 'clean out the freezer', 'e', 'clean out the freezer', 'clean out fridge', 'ls', 'q']);
