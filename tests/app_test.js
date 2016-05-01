@@ -222,7 +222,7 @@ test('listing tasks when tasks exist', function(test) {
 
   app.run(function() {
     var parts = splitOutput("Created task: 'clean out the freezer'");
-    test.match(parts[1], 'clean out the freezer');
+    test.match(parts[1], '1. clean out the freezer');
   });
 
   testStreams.mockInput(['a', 'House work', 'e', 'House work', 'a', 'clean out the freezer', 'ls', 'q']);
@@ -239,7 +239,7 @@ test('editing a task that does not exist', function(test) {
   testStreams.mockInput(['a', 'House work', 'e', 'House work', 'e', 'clean out the freezer', 'q']);
 });
 
-test('editing a task that does exist', function(test) {
+test('editing a task by name that does exist', function(test) {
   setup();
   test.plan(2);
 
@@ -250,6 +250,20 @@ test('editing a task that does exist', function(test) {
   });
 
   testStreams.mockInput(['a', 'House work', 'e', 'House work', 'a', 'clean out the freezer', 'e', 'clean out the freezer', 'clean out fridge', 'ls', 'q']);
+});
+
+test('editing a task by id that does exist', function(test) {
+  setup();
+  test.plan(3);
+
+  app.run(function() {
+    var lastOutput = splitOutput('Listing tasks')[1];
+    test.notMatch(lastOutput, 'clean out the freezer');
+    test.match(lastOutput, '1. clean out fridge');
+    test.match(testStreams.plainOutput(), "Changed task name from 'clean out the freezer' to 'clean out fridge'");
+  });
+
+  testStreams.mockInput(['a', 'House work', 'e', 'House work', 'a', 'clean out the freezer', 'e', '1', 'clean out fridge', 'ls', 'q']);
 });
 
 test('deleting a task when tasks are empty', function(test) {
