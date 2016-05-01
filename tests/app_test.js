@@ -158,7 +158,7 @@ test('editing a project that does not exist', function(test) {
   testStreams.mockInput(['a', 'House work', 'e', 'House Work', 'q']);
 });
 
-test('editing a project shows tasks menu', function(test) {
+test('editing a project by name shows tasks menu', function(test) {
   setup();
   test.plan(7);
 
@@ -167,6 +167,18 @@ test('editing a project shows tasks menu', function(test) {
   });
 
   testStreams.mockInput(['a', 'House work', 'e', 'House work', 'q']);
+});
+
+test('editing a project by id shows tasks menu', function(test) {
+  setup();
+  test.plan(8);
+
+  app.run(function() {
+    includesTaskMenu(test, testStreams.plainOutput());
+    test.match(testStreams.plainOutput(), "Editing project: 'House work'");
+  });
+
+  testStreams.mockInput(['a', 'House work', 'e', '1', 'q']);
 });
 
 test('changing a project name', function(test) {
