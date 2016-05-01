@@ -288,7 +288,7 @@ test('deleting a task that does not exist exists', function(test) {
   testStreams.mockInput(['a', 'House work', 'e', 'House work', 'a', 'clean out the freezer', 'd', 'eat defrosting food', 'q']);
 });
 
-test('deleting a task that exists', function(test) {
+test('deleting a task that exists by name', function(test) {
   setup();
   test.plan(1);
 
@@ -297,6 +297,17 @@ test('deleting a task that exists', function(test) {
   });
 
   testStreams.mockInput(['a', 'House work', 'e', 'House work', 'a', 'clean out the freezer', 'd', 'clean out the freezer', 'ls', 'q']);
+});
+
+test('deleting a task that exists by id', function(test) {
+  setup();
+  test.plan(1);
+
+  app.run(function() {
+    test.match(testStreams.plainOutput(), "Deleted task: 'clean out the freezer'");
+  });
+
+  testStreams.mockInput(['a', 'House work', 'e', 'House work', 'a', 'clean out the freezer', 'd', '1', 'ls', 'q']);
 });
 
 test('finishing a task when tasks are empty', function(test) {
