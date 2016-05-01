@@ -166,3 +166,12 @@ test('duplicating tasks by name will not work', function(test) {
 
   test.deepEqual(data.tasks(), ['feed cats']);
 });
+
+test('currentProjectName returns the name of the current project', function(test) {
+  setup();
+  test.plan(1);
+
+  data.addProject('Chores');
+  data.startEditingProject('Chores');
+  test.equal(data.currentProjectName(), 'Chores');
+});
