@@ -7,21 +7,21 @@ function setup() {
   data = new Data();
 }
 
-test('after initialize there are no projects', function(test) {
+test('Data: after initialize there are no projects', function(test) {
   setup();
   test.plan(1);
 
   test.assert(!data.thereAreProjects());
 });
 
-test('after initialize no project is being edited', function(test) {
+test('Data: after initialize no project is being edited', function(test) {
   setup();
   test.plan(1);
 
   test.assert(!data.isEditingProject());
 });
 
-test('creating a project', function(test) {
+test('Data: creating a project', function(test) {
   setup();
   test.plan(3);
 
@@ -32,7 +32,20 @@ test('creating a project', function(test) {
   test.assert(data.projectExists('Chores'));
 });
 
-test('removing a project', function(test) {
+test('Data: created project can be found by name or assigned id', function(test) {
+  setup();
+  test.plan(1);
+
+  data.addProject('Chores');
+  data.addProject('Features');
+  data.addProject('Bugs');
+
+  var projectFoundByName = data.findProject('Features');
+  var projectFoundById   = data.findProject('2');
+  test.equal(projectFoundByName, projectFoundById);
+});
+
+test('Data: removing a project', function(test) {
   setup();
   test.plan(3);
 
@@ -44,7 +57,7 @@ test('removing a project', function(test) {
   test.assert(!data.projectExists('Chores'));
 });
 
-test('tasks are empty when there is no project being edited', function(test) {
+test('Data: tasks are empty when there is no project being edited', function(test) {
   setup();
   test.plan(2);
 
@@ -52,7 +65,7 @@ test('tasks are empty when there is no project being edited', function(test) {
   test.assert(!data.thereAreTasks());
 });
 
-test('tasks are empty when there are is a project being edited, but it has no tasks', function(test) {
+test('Data: tasks are empty when there are is a project being edited, but it has no tasks', function(test) {
   setup();
   test.plan(2);
 
@@ -63,7 +76,7 @@ test('tasks are empty when there are is a project being edited, but it has no ta
   test.assert(!data.thereAreTasks());
 });
 
-test('task names are returned when a project is being edited and has tasks', function(test) {
+test('Data: task names are returned when a project is being edited and has tasks', function(test) {
   setup();
   test.plan(2);
 
@@ -75,7 +88,7 @@ test('task names are returned when a project is being edited and has tasks', fun
   test.deepEqual(data.tasks(), ['iron shirts']);
 });
 
-test('projects that do not exist cannot be edited', function(test) {
+test('Data: projects that do not exist cannot be edited', function(test) {
   setup();
   test.plan(1);
 
@@ -84,7 +97,7 @@ test('projects that do not exist cannot be edited', function(test) {
   test.assert(!data.isEditingProject());
 });
 
-test('stop editing the project works', function(test) {
+test('Data: stop editing the project works', function(test) {
   setup();
   test.plan(2);
 
@@ -97,7 +110,7 @@ test('stop editing the project works', function(test) {
   test.deepEqual(data.tasks(), []);
 });
 
-test('removing a task', function(test) {
+test('Data: removing a task', function(test) {
   setup();
   test.plan(2);
 
@@ -111,7 +124,7 @@ test('removing a task', function(test) {
   test.deepEqual(data.tasks(), ['walk dog']);
 });
 
-test('renaming the current project', function(test) {
+test('Data: renaming the current project', function(test) {
   setup();
   test.plan(3);
 
@@ -127,7 +140,7 @@ test('renaming the current project', function(test) {
 });
 
 
-test('rename task', function(test) {
+test('Data: rename task', function(test) {
   setup();
   test.plan(1);
 
@@ -139,7 +152,7 @@ test('rename task', function(test) {
   test.deepEqual(data.tasks(), ['feed cats and puppy']);
 });
 
-test('trying to add a project again will no clear tasks', function(test) {
+test('Data: trying to add a project again will not clear tasks', function(test) {
   setup();
   test.plan(1);
 
@@ -155,7 +168,7 @@ test('trying to add a project again will no clear tasks', function(test) {
   test.deepEqual(data.tasks(), ['feed cats']);
 });
 
-test('duplicating tasks by name will not work', function(test) {
+test('Data: duplicating tasks by name will not work', function(test) {
   setup();
   test.plan(1);
 
@@ -167,7 +180,7 @@ test('duplicating tasks by name will not work', function(test) {
   test.deepEqual(data.tasks(), ['feed cats']);
 });
 
-test('currentProjectName returns the name of the current project', function(test) {
+test('Data: currentProjectName returns the name of the current project', function(test) {
   setup();
   test.plan(1);
 

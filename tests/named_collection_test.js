@@ -152,3 +152,18 @@ test('NamedCollection does not allow renaming to an existing name', function(tes
   test.assert(collection.exists('walk cats'));
   test.assert(collection.find('walk dog').id, 3);
 });
+
+test('NamedCollection map is delegated to the array', function(test) {
+  setup();
+
+  test.plan(1);
+
+  collection.add('weed garden');
+  collection.add('walk cats');
+  collection.add('walk dog');
+
+  var names = collection.map(function(item) {
+    return item.name;
+  });
+  test.deepEqual(names, ['weed garden', 'walk cats', 'walk dog']);
+});
