@@ -96,7 +96,7 @@ test('deleting projects when no projects', function(test) {
   testStreams.mockInput(['d', 'q']);
 });
 
-test('deleting projects when there is a project', function(test) {
+test('deleting a project by name when there is a project', function(test) {
   setup();
   test.plan(1);
 
@@ -105,6 +105,17 @@ test('deleting projects when there is a project', function(test) {
   });
 
   testStreams.mockInput(['a', 'House work', 'd', 'House work', 'ls', 'q']);
+});
+
+test('deleting a project by id when there is a project', function(test) {
+  setup();
+  test.plan(1);
+
+  app.run(function() {
+    test.match(testStreams.plainOutput(), "Deleting project: 'House work'");
+  });
+
+  testStreams.mockInput(['a', 'House work', 'd', '1', 'ls', 'q']);
 });
 
 test('deleting a project that does not exist', function(test) {
