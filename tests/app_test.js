@@ -332,7 +332,7 @@ test('finishing a task that does not exist exists', function(test) {
   testStreams.mockInput(['a', 'House work', 'e', 'House work', 'a', 'clean out the freezer', 'f', 'eat defrosting food', 'q']);
 });
 
-test('finishing a task that exists', function(test) {
+test('finishing a task that exists by name', function(test) {
   setup();
   test.plan(1);
 
@@ -342,6 +342,18 @@ test('finishing a task that exists', function(test) {
 
   testStreams.mockInput(['a', 'House work', 'e', 'House work', 'a', 'clean out the freezer', 'f', 'clean out the freezer', 'ls', 'q']);
 });
+
+test('finishing a task that exists by id', function(test) {
+  setup();
+  test.plan(1);
+
+  app.run(function() {
+    test.match(testStreams.plainOutput(), "Finished task: 'clean out the freezer'!");
+  });
+
+  testStreams.mockInput(['a', 'House work', 'e', 'House work', 'a', 'clean out the freezer', 'f', '1', 'ls', 'q']);
+});
+
 
 test('going back to the projects menu', function(test) {
   setup();
