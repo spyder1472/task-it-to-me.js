@@ -297,3 +297,42 @@ test('bug: app hangs at unknown command inside the tasks menu', function(test) {
 
   testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'jj', 'q']);
 });
+
+test('Editing a task requires a prompt', function(test) {
+  setup();
+  test.plan(3);
+
+  app.run(function() {
+    test.match(testStreams.plainOutput(), "Enter a task name:");
+    test.match(testStreams.plainOutput(), "Enter new task name:");
+    test.match(testStreams.plainOutput(), "Changed task name from 'first' to 'second'");
+  });
+
+  testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'a', 'first', 'e', 'first', 'second', 'q']);
+});
+
+test('bug: Deleting a task requires a prompt', function(test) {
+  setup();
+  test.plan(3);
+
+  app.run(function() {
+    test.match(testStreams.plainOutput(), "Enter a task name:");
+    test.match(testStreams.plainOutput(), "Enter new task name:");
+    test.match(testStreams.plainOutput(), "Changed task name from 'first' to 'second'");
+  });
+
+  testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'a', 'first', 'e', 'first', 'second', 'q']);
+});
+
+test('bug: Finishing a task requires a prompt', function(test) {
+  setup();
+  test.plan(3);
+
+  app.run(function() {
+    test.match(testStreams.plainOutput(), "Enter a task name:");
+    test.match(testStreams.plainOutput(), "Enter new task name:");
+    test.match(testStreams.plainOutput(), "Changed task name from 'first' to 'second'");
+  });
+
+  testStreams.mockInput(['a', 'Chores', 'e', 'Chores', 'a', 'first', 'e', 'first', 'second', 'q']);
+});
