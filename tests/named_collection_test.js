@@ -10,11 +10,9 @@ function setup(creatorClass) {
   collection = new NamedCollection(creatorClass);
 }
 
-class Thing {
-  constructor(name) {
-    this.name = name;
-    this.foo = 'bar';
-  }
+function Thing(name) {
+  this.name = name;
+  this.foo = 'bar';
 }
 
 test('NamedCollection it starts as empty', function(test) {
@@ -25,11 +23,9 @@ test('NamedCollection it starts as empty', function(test) {
 });
 
 test('NamedCollection uses the passed in creator class to build new things', function(test) {
-  class Thang {
-    constructor(name) {
-      this.name = name;
-      this.thang = true;
-    }
+  function Thang(name) {
+    this.name = name;
+    this.thang = true;
   }
   setup(Thang);
 
